@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-hi
+spec:
+  type: NodePort
+  ports:
+    - name: server
+      nodePort: 31001
+      port: 8762
+      targetPort: 8762
+  selector:
+    app: service-hi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-hi
+  labels:
+    app: service-hi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-hi
+  template:
+    metadata:
+      name: service-hi
+      labels:
+        app: service-hi
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: service-hi
+          image: service-hi:v1
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8762
+              name: server
+          resources:
+            limits:
+              memory: 1000Mi
+              cpu: 1000m
+            requests:
+              memory: 500Mi
+              cpu: 500m

@@ -6,8 +6,8 @@ spring:
 zuul:
   routes:
     api-a:
-      path: /api-a/**
-      url: http://localhost:8762
+      path: /api-hi/**
+      url: http://service-hi:8762
     api-b:
-      path: /api-b/**
-      url: http://localhost:8765
+      path: /api-feign/**
+      url: http://service-feign:8765
