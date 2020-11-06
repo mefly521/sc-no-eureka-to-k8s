@@ -30,8 +30,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
-
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>fabric8-maven-plugin</artifactId>
@@ -47,26 +45,14 @@
                 <configuration>
                     <!--配置远程docker守护进程url-->
                     <dockerHost>http://200.200.3.150:2375</dockerHost>
-                    <!--认证配置,用于私有registry认证-->
-                    <authConfig>
-                        <username>mefly521@163.com</username>
-                        <password>123</password>
-                    </authConfig>
-                    <!--镜像相关配置,支持多镜像-->
-                    <images>
-                        <!-- 单个镜像配置 -->
-                        <image>
-                            <!--镜像名(含版本号)-->
-                            <name>service-hi:v1</name>
-                            <!--registry地址,用于推送,拉取镜像-->
-                            <registry>registry.cn-shanghai.aliyuncs.com/mifei</registry>
-                            <!--镜像build相关配置-->
-                            <build>
-                                <!--使用dockerFile文件-->
-                                <dockerFile>${project.basedir}/Dockerfile</dockerFile>
-                            </build>
-                        </image>
-                    </images>
+                    <enricher>
+                        <config>
+                            <!-- k8s service 配置 将service开放类型改成NodePort  -->
+                            <fmp-service>
+                                <type>NodePort</type>
+                            </fmp-service>
+                        </config>
+                    </enricher>
                 </configuration>
             </plugin>
         </plugins>
