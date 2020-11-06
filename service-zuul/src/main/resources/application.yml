@@ -1,0 +1,13 @@
+server:
+  port: 8769
+spring:
+  application:
+    name: service-zuul
+zuul:
+  routes:
+    api-a:
+      path: /api-a/**
+      url: http://localhost:8762
+    api-b:
+      path: /api-b/**
+      url: http://localhost:8765
